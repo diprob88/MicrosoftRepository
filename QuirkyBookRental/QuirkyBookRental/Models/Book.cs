@@ -53,6 +53,8 @@ namespace QuirkyBookRental.Models
         [Required]
         public string ProductDimensions { get; set; }
 
+        [Required]
+        public string Publisher { get; set; }
 
     }
 }

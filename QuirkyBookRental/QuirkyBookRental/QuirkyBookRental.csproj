@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201803171046407_AddBookAndGenreClass.Designer.cs">
       <DependentUpon>201803171046407_AddBookAndGenreClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803172026504_AddPubblisherToBookModel.cs" />
+    <Compile Include="Migrations\201803172026504_AddPubblisherToBookModel.Designer.cs">
+      <DependentUpon>201803172026504_AddPubblisherToBookModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
@@ -220,10 +224,15 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\BookViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\cover1.jpg" />
+    <Content Include="Content\Images\cover2.jpg" />
+    <Content Include="Content\Images\cover3.jpg" />
+    <Content Include="Content\Images\cover4.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -290,10 +299,14 @@
     <Content Include="Views\Shared\_EditButtonPartial.cshtml" />
     <Content Include="Views\Genre\Edit.cshtml" />
     <Content Include="Views\Genre\Delete.cshtml" />
+    <Content Include="Views\Book\Create.cshtml" />
+    <Content Include="Views\Book\Delete.cshtml" />
+    <Content Include="Views\Book\Details.cshtml" />
+    <Content Include="Views\Book\Edit.cshtml" />
+    <Content Include="Views\Book\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Book\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -311,6 +324,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803171046407_AddBookAndGenreClass.resx">
       <DependentUpon>201803171046407_AddBookAndGenreClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803172026504_AddPubblisherToBookModel.resx">
+      <DependentUpon>201803172026504_AddPubblisherToBookModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
