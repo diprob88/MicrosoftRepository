@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using QuirkyBookRental.Models;
+using QuirkyBookRental.Utility;
 
 namespace QuirkyBookRental.Controllers
 {
@@ -22,7 +24,7 @@ namespace QuirkyBookRental.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +36,9 @@ namespace QuirkyBookRental.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +122,7 @@ namespace QuirkyBookRental.Controllers
             // Se un utente immette codici non corretti in un intervallo di tempo specificato, l'account dell'utente 
             // viene bloccato per un intervallo di tempo specificato. 
             // Si possono configurare le impostazioni per il blocco dell'account in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,9 +141,16 @@ namespace QuirkyBookRental.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            using (var db = ApplicationDbContext.Create())
+            {
+                RegisterViewModel newUser = new RegisterViewModel
+                {
+                    MembershipTypes = db.MembershipTypes.ToList(),
+                    BirthDate = DateTime.Now
+                };
+                return View(newUser);
+            }
         }
-
         //
         // POST: /Account/Register
         [HttpPost]
@@ -151,12 +160,45 @@ namespace QuirkyBookRental.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    BirthDate = model.BirthDate,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Phone = model.Phone,
+                    MembershipTypeId = model.MembershipTypeID,                   
+                    Disable = false
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    using (var db = ApplicationDbContext.Create())
+                    {
+                        model.MembershipTypes = db.MembershipTypes.ToList();
+                        var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+                        var membership = model.MembershipTypes.SingleOrDefault(m => m.Id == model.MembershipTypeID).Name.ToString();
+
+                        if (membership.ToLower().Contains("admin"))
+                        {
+                            //Fro super admin
+                            await roleManager.CreateAsync(new IdentityRole(SD.AdminUserRole));
+                            await UserManager.AddToRoleAsync(user.Id, SD.AdminUserRole);
+                        }
+                        else
+                        {
+                            //For Customer
+                            await roleManager.CreateAsync(new IdentityRole(SD.EndUserRole));
+                            await UserManager.AddToRoleAsync(user.Id, SD.EndUserRole);
+                        }
+                    }
+
+
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
                     // Inviare un messaggio di posta elettronica con questo collegamento
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
