@@ -31,11 +31,13 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
-        </footer>
-    </div>
 
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bookRentalJs")
     @RenderSection("scripts", required: false)

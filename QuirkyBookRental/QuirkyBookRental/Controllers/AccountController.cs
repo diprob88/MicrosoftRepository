@@ -145,7 +145,7 @@ namespace QuirkyBookRental.Controllers
             {
                 RegisterViewModel newUser = new RegisterViewModel
                 {
-                    MembershipTypes = db.MembershipTypes.ToList(),
+                    MembershipTypes = db.MembershipTypes.Where(m=>!m.Name.ToLower().Equals(SD.AdminUserRole.ToLower())).ToList(),
                     BirthDate = DateTime.Now
                 };
                 return View(newUser);
@@ -383,7 +383,18 @@ namespace QuirkyBookRental.Controllers
                     // Se l'utente non ha un account, chiedere all'utente di crearne uno
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+
+                    using (var db = ApplicationDbContext.Create())
+                    {
+
+                        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel
+                        {
+                            Email = loginInfo.Email,
+                            BirthDate=DateTime.Now,
+                            MembershipTypes=db.MembershipTypes.Where(m=>!m.Name.ToLower().Equals(SD.AdminUserRole.ToLower())).ToList(),
+
+                        });
+                    }
             }
         }
 
@@ -407,7 +418,21 @@ namespace QuirkyBookRental.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var name = info.ExternalIdentity.Name.Split(' ');
+                var firstname = name[0].ToString();
+                var lastname = name[1].ToString();
+
+                var user = new ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName=firstname,
+                    LastName=lastname,
+                    BirthDate=model.BirthDate,
+                    Phone=model.Phone,
+                    MembershipTypeId=model.MembershipTypeId,
+                    Disable=false
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
