@@ -158,25 +158,25 @@ namespace QuirkyBookRental.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            using (var db = ApplicationDbContext.Create())
             {
-                var user = new ApplicationUser
+                model.MembershipTypes = db.MembershipTypes.ToList();
+                if (ModelState.IsValid)
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    BirthDate = model.BirthDate,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Phone = model.Phone,
-                    MembershipTypeId = model.MembershipTypeID,                   
-                    Disable = false
-                };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    using (var db = ApplicationDbContext.Create())
+                    var user = new ApplicationUser
                     {
-                        model.MembershipTypes = db.MembershipTypes.ToList();
+                        UserName = model.Email,
+                        Email = model.Email,
+                        BirthDate = model.BirthDate,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Phone = model.Phone,
+                        MembershipTypeId = model.MembershipTypeID,
+                        Disable = false
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
                         var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                         var roleManager = new RoleManager<IdentityRole>(roleStore);
                         var membership = model.MembershipTypes.SingleOrDefault(m => m.Id == model.MembershipTypeID).Name.ToString();
@@ -193,24 +193,22 @@ namespace QuirkyBookRental.Controllers
                             await roleManager.CreateAsync(new IdentityRole(SD.EndUserRole));
                             await UserManager.AddToRoleAsync(user.Id, SD.EndUserRole);
                         }
+
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Inviare un messaggio di posta elettronica con questo collegamento
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Conferma account", "Per confermare l'account, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
+
+                        return RedirectToAction("Index", "Home");
                     }
-
-
-
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Inviare un messaggio di posta elettronica con questo collegamento
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Conferma account", "Per confermare l'account, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    AddErrors(result);
                 }
-                AddErrors(result);
             }
-
             // Se si è arrivati a questo punto, significa che si è verificato un errore, rivisualizzare il form
+           
             return View(model);
         }
 
