@@ -15,7 +15,7 @@ namespace QuirkyBookRental.Models
         public int? GenderId { get; set; }
         public int? BookId { get; set; }
         public int? CustomerId { get; set; }
-        public int? MemmershipTypeId { get; set; }
+        public int? MembershipTypeId { get; set; }
 
 
         public string ActionParameter()
@@ -35,9 +35,9 @@ namespace QuirkyBookRental.Models
                 {
                     param.Append(String.Format("{0}", CustomerId));
                 }
-                if (MemmershipTypeId != null && MemmershipTypeId > 0)
+                if (MembershipTypeId != null && MembershipTypeId > 0)
                 {
-                    param.Append(String.Format("{0}", MemmershipTypeId));
+                    param.Append(String.Format("{0}", MembershipTypeId));
                 }
                 return param.ToString();
             

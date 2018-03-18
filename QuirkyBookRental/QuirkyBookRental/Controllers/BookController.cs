@@ -143,7 +143,7 @@ namespace QuirkyBookRental.Controllers
                 return RedirectToAction("Index");
             }
             bookVM.Genres = db.Genres.ToList();
-            return View(book);
+            return View(bookVM);
         }
 
         // GET: Book/Delete/5

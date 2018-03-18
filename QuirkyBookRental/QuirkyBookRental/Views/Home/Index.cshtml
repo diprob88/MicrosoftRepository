@@ -1,4 +1,24 @@
-﻿@{
+﻿@model IEnumerable<QuirkyBookRental.ViewModel.ThumbnailBoxViewModel>
+@{
     ViewBag.Title = "Home Page";
 }
 
+<div class="row">
+    <br />
+    <div class="pull-right" style="padding-right:15px;">
+        <button type="submit" value="Search" class="btn btn-sm btn-primary">
+            <span class="glyphicon glyphicon-search"></span>&nbsp;Search
+        </button>
+    </div>
+    <div class="pull-right">
+        @Html.Editor("search",new {htmlattributes =new { @class="form-control input-sm"} })
+    </div>
+</div>
+<br />
+
+<div class="row">
+    @foreach(var area in Model)
+    {
+        @Html.Partial("_ThumbnailAreaPartial",area);
+    }
+</div>
