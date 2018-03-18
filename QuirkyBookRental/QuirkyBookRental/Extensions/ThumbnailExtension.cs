@@ -8,11 +8,11 @@ namespace QuirkyBookRental.Extensions
 {
     public static class ThumbnailExtension
     {
-        public static IEnumerable<ThumbnailModel> GetBookThumbnail(this List<ThumbnailModel>thumbnails, ApplicationDbContext db=null)
+        public static IEnumerable<ThumbnailModel> GetBookThumbnail(this List<ThumbnailModel> thumbnails, ApplicationDbContext db = null, string search = null)
         {
             try
-            { 
-                if(db==null)
+            {
+                if (db == null)
                 {
                     db = ApplicationDbContext.Create();
                 }
@@ -26,11 +26,16 @@ namespace QuirkyBookRental.Extensions
                                   ImageUrl = b.ImageUrl,
                                   Link = "/Book/Details/" + b.Id
                               }).ToList();
-                }catch(Exception ex)
+                if (search != null)
                 {
-
+                    return thumbnails.Where(t => t.Title.ToLower().Contains(search.ToLower())).OrderBy(t => t.Title);
                 }
-            return thumbnails.OrderBy(b=>b.Title);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return thumbnails.OrderBy(b => b.Title);
         }
     }
 }
