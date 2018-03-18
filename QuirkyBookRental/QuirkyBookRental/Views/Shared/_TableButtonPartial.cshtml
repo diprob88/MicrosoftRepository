@@ -13,7 +13,8 @@
                   GenderId = Model.GenderId,
                   BookId = Model.BookId,
                   CustomerId = Model.CustomerId,
-                  MembershipTypeId = Model.MembershipTypeId
+                  MembershipTypeId = Model.MembershipTypeId,
+                  UserId=Model.UserId
             
               })
 
@@ -27,7 +28,8 @@
                 GenderId = Model.GenderId,
                 BookId = Model.BookId,
                 CustomerId = Model.CustomerId,
-                MembershipTypeId = Model.MembershipTypeId
+                MembershipTypeId = Model.MembershipTypeId,
+                UserId = Model.UserId
             })
 
         @Html.Partial("_IndividualButtonPartial",
@@ -40,7 +42,8 @@
                GenderId = Model.GenderId,
                BookId = Model.BookId,
                CustomerId = Model.CustomerId,
-               MembershipTypeId = Model.MembershipTypeId
+               MembershipTypeId = Model.MembershipTypeId,
+               UserId = Model.UserId
            })
     </div>
 </td>

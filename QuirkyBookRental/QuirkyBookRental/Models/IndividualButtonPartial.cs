@@ -16,31 +16,36 @@ namespace QuirkyBookRental.Models
         public int? BookId { get; set; }
         public int? CustomerId { get; set; }
         public int? MembershipTypeId { get; set; }
+        public string UserId { get; set; }
 
 
         public string ActionParameter()
         {
-            
-                var param = new StringBuilder(@"/");
 
-                if (BookId != null && BookId > 0)
-                {
-                    param.Append(String.Format("{0}", BookId));
-                }
-                if (GenderId != null && GenderId > 0)
-                {
-                    param.Append(String.Format("{0}", GenderId));
-                }
-                if (CustomerId != null && CustomerId > 0)
-                {
-                    param.Append(String.Format("{0}", CustomerId));
-                }
-                if (MembershipTypeId != null && MembershipTypeId > 0)
-                {
-                    param.Append(String.Format("{0}", MembershipTypeId));
-                }
-                return param.ToString();
-            
+            var param = new StringBuilder(@"/");
+
+            if (BookId != null && BookId > 0)
+            {
+                param.Append(String.Format("{0}", BookId));
+            }
+            if (GenderId != null && GenderId > 0)
+            {
+                param.Append(String.Format("{0}", GenderId));
+            }
+            if (CustomerId != null && CustomerId > 0)
+            {
+                param.Append(String.Format("{0}", CustomerId));
+            }
+            if (MembershipTypeId != null && MembershipTypeId > 0)
+            {
+                param.Append(String.Format("{0}", MembershipTypeId));
+            }
+            if (UserId != null && UserId.Trim().Length > 0)
+            {
+                param.Append(String.Format("{0}", UserId));
+            }
+            return param.ToString();
+
         }
     }
 }
