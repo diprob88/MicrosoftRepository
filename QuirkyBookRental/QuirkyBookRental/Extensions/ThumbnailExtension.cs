@@ -24,7 +24,7 @@ namespace QuirkyBookRental.Extensions
                                   Title = b.Title,
                                   Description = b.Description,
                                   ImageUrl = b.ImageUrl,
-                                  Link = "/Book/Details/" + b.Id
+                                  Link = "/BookDetail/Index/" + b.Id
                               }).ToList();
                 if (search != null)
                 {

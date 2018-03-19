@@ -43,6 +43,7 @@ namespace QuirkyBookRental.Models
         public Genre Genre { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: MMM dd yyyy}")]
         public DateTime PubblicationDate { get; set; }
 

@@ -28,7 +28,8 @@ namespace QuirkyBookRental
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/thumbnail.css",
-                      "~/Content/social.css"));
+                      "~/Content/social.css",
+                      "~/Content/BookDetail.css"));
         }
     }
 }

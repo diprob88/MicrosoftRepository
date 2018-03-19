@@ -231,7 +231,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\BookAPIController.cs" />
+    <Compile Include="Controllers\Api\UsersAPIController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\BookDetailController.cs" />
+    <Compile Include="Controllers\BookRentController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -262,9 +266,18 @@
     <Compile Include="Migrations\201803181016266_AddFiledsToMemershipTable.Designer.cs">
       <DependentUpon>201803181016266_AddFiledsToMemershipTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803182212411_AddBookRentalModel.cs" />
+    <Compile Include="Migrations\201803182212411_AddBookRentalModel.Designer.cs">
+      <DependentUpon>201803182212411_AddBookRentalModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803182215557_AddRentalDurationBookRentModel.cs" />
+    <Compile Include="Migrations\201803182215557_AddRentalDurationBookRentModel.Designer.cs">
+      <DependentUpon>201803182215557_AddRentalDurationBookRentModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookRent.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IndividualButtonPartial.cs" />
@@ -274,11 +287,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\SD.cs" />
+    <Compile Include="ViewModel\BookRentalViewModel.cs" />
     <Compile Include="ViewModel\BookViewModel.cs" />
     <Compile Include="ViewModel\ThumbnailBoxViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BookDetail.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\cover1.jpg" />
@@ -369,9 +384,11 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\BookDetail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BookRent\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -401,6 +418,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803181016266_AddFiledsToMemershipTable.resx">
       <DependentUpon>201803181016266_AddFiledsToMemershipTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803182212411_AddBookRentalModel.resx">
+      <DependentUpon>201803182212411_AddBookRentalModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803182215557_AddRentalDurationBookRentModel.resx">
+      <DependentUpon>201803182215557_AddRentalDurationBookRentModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

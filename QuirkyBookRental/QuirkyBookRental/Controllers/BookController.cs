@@ -185,8 +185,7 @@ namespace QuirkyBookRental.Controllers
             if (disposing)
             {
                 db.Dispose();
-            }
-            base.Dispose(disposing);
+            }           
         }
     }
 }
