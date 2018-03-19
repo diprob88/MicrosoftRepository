@@ -36,7 +36,7 @@ namespace QuirkyBookRental.Controllers
                     ISBN=ISBN
                 };
             }
-            return View();
+            return View(new BookRentalViewModel());
         }
         //POST
         [HttpPost]
