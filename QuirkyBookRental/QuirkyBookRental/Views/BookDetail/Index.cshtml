@@ -97,7 +97,7 @@
                             if (User.IsInRole(SD.AdminUserRole) && Model.Avaibility == 0)
                             {
                                 //Admin user with book not available
-                                <button type="submit" disabled class="btn btn-danger">
+                                <button type="submit" disabled class="btn btn-danger disabled">
                                     <span class="glyphicon glyphicon-thumbs-down"></span>Unavailable
                                 </button>
                             }
@@ -166,7 +166,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp; @Html.DisplayFor(m => m.Price)
                 </dd>
             </dl>
-
+            @Html.HiddenFor(m=>m.BookId)
         </div>
     </div>
 }
