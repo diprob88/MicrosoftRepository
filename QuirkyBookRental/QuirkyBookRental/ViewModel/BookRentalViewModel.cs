@@ -1,4 +1,5 @@
 ﻿using QuirkyBookRental.Models;
+using QuirkyBookRental.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,7 +80,7 @@ namespace QuirkyBookRental.ViewModel
         public string Status { get; set; }
 
         public double rentalPriceOneMonth { get; set; }
-            
+
         public double rentalPriceSixMonth { get; set; }
 
         //User Details
@@ -100,8 +101,26 @@ namespace QuirkyBookRental.ViewModel
         public DateTime BirthDate { get; set; }
 
 
+        public string actionName
+        {
+            get
+            {
+                if (Status.ToLower().Contains(SD.RequestedLower))
+                {
+                    return "Approve";
+                }
+                if (Status.ToLower().Contains(SD.ApprovedLower))
+                {
+                    return "PickUp";
+                }
+                if (Status.ToLower().Contains(SD.RentedLower))
+                {
+                    return "Return";
+                }
+                return null;
+            }
 
 
-
+        }
     }
 }
