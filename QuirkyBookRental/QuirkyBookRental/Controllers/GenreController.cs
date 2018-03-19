@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace QuirkyBookRental.Controllers
 {
+    [Authorize(Roles = SD.AdminUserRole)]
     public class GenreController : Controller
     {
         private ApplicationDbContext db;

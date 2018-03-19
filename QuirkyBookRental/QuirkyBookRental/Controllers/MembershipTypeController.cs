@@ -10,6 +10,7 @@ using QuirkyBookRental.Models;
 
 namespace QuirkyBookRental.Controllers
 {
+    [Authorize(Roles = SD.AdminUserRole)]
     public class MembershipTypeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
