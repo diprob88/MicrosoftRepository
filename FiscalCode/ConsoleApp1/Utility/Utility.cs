@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using ExcelDataReader;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -55,12 +57,11 @@ namespace Comuni
             }
             return listaComuni;
         }
-
         public static Comune SearchComune(string name)
         {
             var json = File.ReadAllText(@"..\..\..\ConsoleApp1\src\json\comuni.json");
             var objects = JArray.Parse(json); // parse as array  
-            var search=objects.Where(c => ((string)c["nome"]).ToUpper().Equals(name.ToUpper())).ToList().FirstOrDefault();          
+            var search = objects.Where(c => ((string)c["nome"]).ToUpper().Equals(name.ToUpper())).ToList().FirstOrDefault();
             Comune comune = new Comune
             {
                 nome = (string)search["nome"],
@@ -95,7 +96,6 @@ namespace Comuni
             comune.cap = caps;
             return comune;
         }
-
         public static void ScriptInsertGenerate(List<Comune> comuni)
         {
             string output = "INSERT INTO Comuni (CodiceCatastale,Nome,Regione,Provincia,Sigla,CAP) VALUES";
@@ -125,13 +125,43 @@ namespace Comuni
         }
         public static string CheckMark(string word)
         {
-            if(word.Contains("'"))
+            if (word.Contains("'"))
             {
-               word= word.Replace("'", "\\'");
+                word = word.Replace("'", "\\'");
             }
             return word;
         }
-        
+
+        public static void ReadExcel()
+        {
+            string path = @"..\..\..\ConsoleApp1\src\excel\comuniestero.xls";
+            FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read);
+            IExcelDataReader reader = ExcelReaderFactory.CreateBinaryReader(fs);
+            var result = reader.AsDataSet();
+            DataTable table = result.Tables["Estero"];
+            reader.Close();
+            //table.Select("Stato like '%" + value + "%'");
+
+            foreach (DataRow row in table.Rows)
+            {
+                Console.WriteLine(row["Column0"]);
+                Console.WriteLine(row["Column1"]);
+                Console.WriteLine(row["Column2"]);
+                Console.WriteLine(row["Column3"]);
+            }
+        }
+
+        public static string SearchCodEstero(string name)
+        {
+            string path = @"..\..\..\ConsoleApp1\src\excel\comuniestero.xls";
+            FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read);
+            IExcelDataReader reader = ExcelReaderFactory.CreateBinaryReader(fs);
+            var result = reader.AsDataSet();
+            DataTable table = result.Tables["Estero"];
+            reader.Close();
+            var search= table.Select("Column1 like '%" + name.ToUpper() + "%'");
+            return "";
+        }
 
     }
 }

@@ -27,8 +27,10 @@ namespace Comuni
                 birthday = new DateTime(1988, 1, 20)
             };
             FiscalCode cod = new FiscalCode(person);
-     
-            Console.WriteLine(cod.GetFiscalCode());
+
+            Utility.ReadExcel();
+
+            Console.WriteLine(Utility.SearchCodEstero("albania"));
 
 
             Console.Read();
