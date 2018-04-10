@@ -27,10 +27,8 @@ namespace Comuni
                 birthday = new DateTime(1988, 1, 20)
             };
             FiscalCode cod = new FiscalCode(person);
-            Console.WriteLine(cod.GetName());
-            Console.WriteLine(cod.GetSurname());
-            Console.WriteLine(cod.GetCodeData());
-            
+     
+            Console.WriteLine(cod.GetFiscalCode());
 
 
             Console.Read();

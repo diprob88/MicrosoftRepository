@@ -28,11 +28,30 @@ namespace Comuni
         {
             return GetEditNameSurname(person.surname);
         }
-        #endregion
+
+        public string GetCodeCatasto()
+        {
+            return GetCodeCatasto(person.cityOfBirth);
+        }
+   
         public string GetCodeData()
         {
             return GetCodeData(person.birthday);
         }
+        public string GetCin()
+        {
+            return GetCIN();
+        }
+
+        public string GetFiscalCode()
+        {
+            string item = GetEditNameSurname(person.surname) + GetEditNameSurname(person.name) + GetCodeData(person.birthday) + GetCodeCatasto(person.cityOfBirth);
+            int rest = GetRest(item);
+            return item+ Constants.CheckRest[rest];
+        }
+        #endregion
+
+
 
         #region Functions Methods
         /*
@@ -143,6 +162,56 @@ namespace Comuni
 
             return output;               
         }
-        #endregion
-    }
+
+        private string GetCodeCatasto(string name)
+        {
+            return Utility.SearchComune(name).codiceCatastale;
+        }
+
+        /*
+        Carattere di controllo (una lettera)
+        A partire dai quindici caratteri alfanumerici ricavati in precedenza, si determina il carattere di controllo 
+        (indicato a volte come CIN, Control Internal Number) in base a un particolare algoritmo che opera in questo modo:
+        - si mettono da una parte i caratteri alfanumerici che si trovano in posizione dispari e da un'altra quelli che si trovano in posizione pari;
+        - fatto questo, i caratteri vengono convertiti in valori numerici secondo le seguenti tabelle:
+          CARATTERI ALFANUMERICI DISPARI(Constants.CheckOddCharacters)
+          CARATTERI ALFANUMERICI PARI(Constants.CheckEvenCharacters)
+        - a questo punto, i valori che si ottengono dai caratteri alfanumerici pari e dispari vanno sommati tra di loro e il risultato va diviso per 26; 
+          il resto della divisione fornirà il codice identificativo, ottenuto dalla tabella di conversione:
+          RESTO(Constants.CheckRest)
+
+        */
+        private string GetCIN()
+        {
+            string item = GetEditNameSurname(person.surname) + GetEditNameSurname(person.name) + GetCodeData(person.birthday) + GetCodeCatasto(person.cityOfBirth);
+            var tmp = item.ToCharArray();
+            int sum = 0;
+            for(int i=0;i<tmp.Length;i++)
+            {
+                if (i % 2 == 0)
+                    sum += Constants.CheckOddCharacters[tmp[i]];
+                else
+                    sum += Constants.CheckEvenCharacters[tmp[i]];
+            }
+            sum = sum % 26;
+            return Constants.CheckRest[sum];
+        }
+
+        private int GetRest(string partialcode)
+        {
+            var tmp = partialcode.ToCharArray();
+            int sum = 0;
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                if (i % 2 == 0)
+                    sum += Constants.CheckOddCharacters[tmp[i]];
+                else
+                    sum += Constants.CheckEvenCharacters[tmp[i]];
+            }
+            return sum % 26;
+        }
+
+
+            #endregion
+        }
 }
