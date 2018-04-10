@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuirkyBookRental.Models;
+using QuirkyBookRental.Utility;
 
 namespace QuirkyBookRental.Controllers
 {
