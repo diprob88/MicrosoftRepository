@@ -165,7 +165,10 @@ namespace Comuni
 
         private string GetCodeCatasto(string name)
         {
-            return Utility.SearchComune(name).codiceCatastale;
+            if (person.country.ToUpper().Equals("ITALIA") || person.country.ToUpper().Equals("ITALY"))
+                return Utility.SearchComune(name).codiceCatastale;
+            else
+                return Utility.SearchCodEstero(person.country);
         }
 
         /*

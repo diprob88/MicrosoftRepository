@@ -160,7 +160,7 @@ namespace Comuni
             DataTable table = result.Tables["Estero"];
             reader.Close();
             var search= table.Select("Column1 like '%" + name.ToUpper() + "%'");
-            return "";
+            return search[0]["Column3"].ToString();
         }
 
     }

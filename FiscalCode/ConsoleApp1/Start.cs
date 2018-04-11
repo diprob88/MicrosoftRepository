@@ -23,14 +23,15 @@ namespace Comuni
                 name = "Roberto",           
                 surname = "Di Perna",
                 sex = 'M',
+                country="italia",
                 cityOfBirth = "Catania",
                 birthday = new DateTime(1988, 1, 20)
             };
             FiscalCode cod = new FiscalCode(person);
 
-            Utility.ReadExcel();
+            //Utility.ReadExcel();
 
-            Console.WriteLine(Utility.SearchCodEstero("albania"));
+            Console.WriteLine(cod.GetFiscalCode());
 
 
             Console.Read();
