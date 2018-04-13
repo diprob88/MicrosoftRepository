@@ -32,7 +32,7 @@ namespace Comuni
             //Utility.ReadExcel();
 
             Console.WriteLine(cod.GetFiscalCode());
-
+            Utility.ScriptInsertGenerateEstero();
 
             Console.Read();
 

@@ -113,6 +113,26 @@ namespace Comuni
 
             File.WriteAllText(@"C:\Users\Roberto\Desktop\WriteText.txt", output);
         }
+        public static void ScriptInsertGenerateEstero()
+        {
+            string output = "INSERT INTO comuniEstero (CodiceCatastale,Stato,Note,CodiceIstat) VALUES";
+            string path = @"..\..\..\ConsoleApp1\src\excel\comuniestero.xls";
+            FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read);
+            IExcelDataReader reader = ExcelReaderFactory.CreateBinaryReader(fs);
+            var result = reader.AsDataSet();
+            DataTable table = result.Tables["Estero"];
+            reader.Close();
+            foreach (DataRow row in table.Rows)
+            {
+                output += String.Format("('{0}','{1}','{2}','{3}'),\n",
+                row["Column3"],
+                CheckMark(row["Column1"].ToString()),
+                row["Column2"],
+                row["Column0"]);
+            }
+            output = output.Remove(output.Length - 2);
+            File.WriteAllText(@"C:\Users\Roberto\Desktop\InsertEstero.txt", output);
+        }
         public static string ListCap(List<string> caps)
         {
             string output = string.Empty;
@@ -131,7 +151,6 @@ namespace Comuni
             }
             return word;
         }
-
         public static void ReadExcel()
         {
             string path = @"..\..\..\ConsoleApp1\src\excel\comuniestero.xls";
@@ -150,7 +169,6 @@ namespace Comuni
                 Console.WriteLine(row["Column3"]);
             }
         }
-
         public static string SearchCodEstero(string name)
         {
             string path = @"..\..\..\ConsoleApp1\src\excel\comuniestero.xls";
