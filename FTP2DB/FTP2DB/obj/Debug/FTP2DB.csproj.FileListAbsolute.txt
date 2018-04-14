@@ -1,0 +1,6 @@
+c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\bin\Debug\FTP2DB.exe.config
+c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\bin\Debug\FTP2DB.exe
+c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\bin\Debug\FTP2DB.pdb
+c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\obj\Debug\FTP2DB.exe
+c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\obj\Debug\FTP2DB.pdb
+C:\Users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\obj\Debug\FTP2DB.csprojResolveAssemblyReference.cache
