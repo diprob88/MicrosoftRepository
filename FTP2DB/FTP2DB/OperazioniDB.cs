@@ -71,6 +71,7 @@ namespace FTP2DB
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                return 0;
             }
 
             return tarid;

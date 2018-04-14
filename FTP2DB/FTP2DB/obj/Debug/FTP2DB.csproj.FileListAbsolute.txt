@@ -4,3 +4,10 @@ c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\bin
 c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\obj\Debug\FTP2DB.exe
 c:\users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\obj\Debug\FTP2DB.pdb
 C:\Users\roberto diperna\documents\visual studio 2015\Projects\FTP2DB\FTP2DB\obj\Debug\FTP2DB.csprojResolveAssemblyReference.cache
+C:\Users\Roberto\source\repos\MicrosoftRepository\FTP2DB\FTP2DB\obj\Debug\FTP2DB.csproj.CoreCompileInputs.cache
+C:\Users\Roberto\source\repos\MicrosoftRepository\FTP2DB\FTP2DB\obj\Debug\FTP2DB.exe
+C:\Users\Roberto\source\repos\MicrosoftRepository\FTP2DB\FTP2DB\obj\Debug\FTP2DB.pdb
+C:\Users\Roberto\source\repos\MicrosoftRepository\FTP2DB\FTP2DB\bin\Debug\FTP2DB.exe.config
+C:\Users\Roberto\source\repos\MicrosoftRepository\FTP2DB\FTP2DB\bin\Debug\FTP2DB.exe
+C:\Users\Roberto\source\repos\MicrosoftRepository\FTP2DB\FTP2DB\bin\Debug\FTP2DB.pdb
+C:\Users\Roberto\source\repos\MicrosoftRepository\FTP2DB\FTP2DB\obj\Debug\FTP2DB.csprojResolveAssemblyReference.cache

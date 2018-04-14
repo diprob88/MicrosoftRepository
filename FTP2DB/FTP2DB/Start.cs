@@ -44,10 +44,10 @@ public class Start
             /* FTP ftpClient = new FTP(@"ftp://ftp.italia.bt.com", "tnet", "Btftppw036$");
              ftpClient.download("tnet/dettaglio8xx_00228444_20160810.txt.gz", @"C:\DatiBT\dettaglio8xx_00228444_20160810.txt.gz");
              Decompress();*/
-                     
+
             //string path= @"C:\DatiBT\"+Supporto.DCHDataCorrente();
             //string path = @"C:\DatiBT\dettaglio8xx_00228444_20160823.txt";
-            string path2 = @"C:\DatiBT\T.NET SpA_DCH_06_02_2017.txt";
+            //string path2 = @"C:\DatiBT\T.NET SpA_DCH_06_02_2017.txt";
 
             //traffico_8xx_00228444_2016_09.txt
             // string path3 = @"C:\DatiBT\traffico_8xx_00228444_2016_09.txt";
@@ -57,10 +57,10 @@ public class Start
 
 
 
-           
 
-              if (File.Exists(path2))
-                OperazioniDB.loadFileDB1(path2);
+
+            /* if (File.Exists(path2))
+               OperazioniDB.loadFileDB1(path2);*/
 
 
 
@@ -70,7 +70,8 @@ public class Start
 
 
 
-
+            GeneraScript.GenerateScriptDetails();
+            GeneraScript.GenerateScriptTnet();
 
 
 
